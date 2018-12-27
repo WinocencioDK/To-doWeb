@@ -1,4 +1,4 @@
-package servlets;
+package com.todoweb.web;
 
 import java.io.IOException;
 import javax.servlet.ServletConfig;
@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entidades.Tarefa;
-import persistencia.TarefaDAO;
+import com.todoweb.business.Tarefa;
+import com.todoweb.condao.TarefaDAO;
 
 /**
  * Servlet implementation class ServletControlador
@@ -37,24 +37,24 @@ public class ServletControlador extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Recebendo Requisição");
+		
 		Tarefa tar = new Tarefa();
+		TarefaDAO tarD = new TarefaDAO();
 		
 		tar.setNome(request.getParameter("nomeTarefa"));
 		System.out.println("Recebido");
-		/*if(tar.getNome().length() < 10 || tar.getNome().length() < 60) {
-			//Redirecionar devolta com mensagem de Erro
+		if(tar.getNome().length() < 10 || tar.getNome().length() > 60) {
+			response.sendRedirect("index.jsp?err=fail");
 		}else
-		{*/
-		System.out.println("Enviando para o Banco");
-			TarefaDAO tarD = new TarefaDAO();
+		{
 			tarD.AdicionarTarefa(tar);
-			
 			//String uri = “servlets/ServletLeitor”; 
 			//RequestDispatcher dispatcher = request.getRequestDispatcher(uri); 
 			//dispatcher.forward(request, response); 
-			response.sendRedirect("index.html");
-		//}
+			
+			response.sendRedirect("index.jsp?err=sucess");
+		}
+		tarD.ApresentaTarefas();//ver se o Response, não é um return da vida
+		//Retornar para o index.jsp com o err e com o obj Tarefas...
 	}
-
 }

@@ -1,4 +1,4 @@
-package entidades;
+package com.todoweb.business;
 
 public class Tarefa {
 	

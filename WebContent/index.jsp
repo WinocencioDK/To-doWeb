@@ -1,5 +1,9 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
+<head>
     <head>
         <title>Meu Todo em Java</title>
         <meta charset="utf-8">
@@ -11,6 +15,8 @@
     </head>
     <title>TO-DO</title>
     <body>
+    	<jsp:useBean id="tarefa" class="com.todoweb.vo.TarefaVo"/>
+    	
         <div class="container">
             <div class="jumbotron">
                 <h1>To-Do</h1>
@@ -22,10 +28,23 @@
                 <input type="text" name="nomeTarefa" class="form-control mb-2 mr-sm-2" minlength=10 maxlength="60" required>
                 <button type="submit" class="btn btn-success mb-2">+</button>    
             </form>
-
-            <table>
-
-
+            
+            <br>
+            <br>
+            
+            <c:forEach var="tarefa" items="${tarefa.lista}">
+				            
+            	<div class="card">
+  					<div class="card-body">
+    					${tarefa.nome}
+    					<button type="button" class="btn btn-outline-success">Finalizar</button>
+    					<button type="button" class="btn btn-outline-danger">Excluir</button>
+    					
+  					</div>
+				</div>
+				<br>
+            
+            </c:forEach>
         </div>
     </body>
-</html> 
+</html>

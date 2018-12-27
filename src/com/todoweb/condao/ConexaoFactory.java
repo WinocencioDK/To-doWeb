@@ -1,4 +1,4 @@
-package persistencia;
+package com.todoweb.condao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
